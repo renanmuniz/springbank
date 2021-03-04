@@ -1,4 +1,4 @@
-package br.com.springbank.rest.contrato;
+package br.com.springbank.zzzrest.contrato;
 
 /**
  * Contrato do adaptador primário hexagonal endpoint REST de teste.

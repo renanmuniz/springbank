@@ -1,8 +1,8 @@
-package br.com.springbank.rest.imp;
+package br.com.springbank.zzzrest.imp;
 
-import br.com.springbank.hexagono.servicos.repositorio.contrato.RepTeste;
-import br.com.springbank.hexagono.servicos.repositorio.dominio.Teste;
-import br.com.springbank.rest.contrato.TesteAdaptadorRest;
+import br.com.springbank.zzzhexagono.servicos.repositorio.contrato.RepTeste;
+import br.com.springbank.zzzhexagono.servicos.repositorio.dominio.Teste;
+import br.com.springbank.zzzrest.contrato.TesteAdaptadorRest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

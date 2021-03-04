@@ -1,4 +1,4 @@
-package br.com.springbank.hexagono.servicos.repositorio.dominio;
+package br.com.springbank.zzzhexagono.servicos.repositorio.dominio;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
