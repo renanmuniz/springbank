@@ -30,7 +30,7 @@ public class AutenticacaoViaTokenFilter extends OncePerRequestFilter {
         if(valido) {
             Long idUsuario = tokenService.getIdUsuario(token);
             Usuario usuario = repository.findById(idUsuario).get();
-            System.out.println("Cliente logado: " + usuario.getUsuario());
+            System.out.println("Cliente logado: " + usuario.getNome());
             autenticarCliente(token);
         }
 

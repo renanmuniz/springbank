@@ -3,6 +3,7 @@ package br.com.springbank.controller;
 import br.com.springbank.controller.dto.UsuarioDto;
 import br.com.springbank.controller.form.UsuarioForm;
 import br.com.springbank.modelo.Usuario;
+import br.com.springbank.repository.PerfilRepository;
 import br.com.springbank.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,8 +28,8 @@ public class UsuarioController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-//    @Autowired
-//    private PerfilRepository perfilRepository;
+    @Autowired
+    private PerfilRepository perfilRepository;
 
     /**
      *
@@ -43,7 +44,7 @@ public class UsuarioController {
             Page<Usuario> usuarios = usuarioRepository.findAll(paginacao);
             return UsuarioDto.converter(usuarios);
         } else {
-            Page<Usuario> usuarios = usuarioRepository.findByUsuario(nomeUsuario,paginacao);
+            Page<Usuario> usuarios = usuarioRepository.findByNome(nomeUsuario,paginacao);
             return UsuarioDto.converter(usuarios);
         }
     }
@@ -58,9 +59,9 @@ public class UsuarioController {
     @Transactional
     public ResponseEntity<UsuarioDto> cadastrar(@RequestBody @Valid UsuarioForm form,
                                                    UriComponentsBuilder uriBuilder) {
-        Usuario usuario = form.converter(/*perfilRepository*/);
+        Usuario usuario = form.converter(perfilRepository);
         usuarioRepository.save(usuario);
-
+        usuario.setData_criacao(LocalDateTime.now());
         URI uri = uriBuilder.path("/usuarios/{id}").buildAndExpand(usuario.getId()).toUri();
         return ResponseEntity.created(uri).body(new UsuarioDto(usuario));
     }
@@ -91,7 +92,7 @@ public class UsuarioController {
     public ResponseEntity<UsuarioDto> atualizar(@PathVariable Long id, @RequestBody @Valid UsuarioForm form) {
         Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
         if(usuarioOptional.isPresent()) {
-            Usuario usuario = form.atualizar(id, usuarioRepository/*, perfilRepository*/);
+            Usuario usuario = form.atualizar(id, usuarioRepository, perfilRepository);
             usuario.setData_alteracao(LocalDateTime.now());
             return ResponseEntity.ok(new UsuarioDto(usuario));
         }

@@ -10,7 +10,7 @@ public class UsuarioDto {
 
     public UsuarioDto(Usuario usuario) {
         this.id = usuario.getId();
-        this.nome = usuario.getUsuario();
+        this.nome = usuario.getNome();
     }
 
     public static Page<UsuarioDto> converter(Page<Usuario> usuarios) {

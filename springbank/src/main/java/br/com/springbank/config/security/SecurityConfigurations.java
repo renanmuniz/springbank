@@ -45,9 +45,9 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers(HttpMethod.POST,"/auth").permitAll()
-                //.antMatchers(HttpMethod.POST,"/usuarios").hasAnyRole("ADMIN,GERENTE")
-                //.antMatchers(HttpMethod.PUT,"/usuarios/*").hasAnyRole("ADMIN, GERENTE")
-                //.antMatchers(HttpMethod.DELETE,"/usuarios/*").hasAnyRole("ADMIN, GERENTE")
+                .antMatchers(HttpMethod.POST,"/usuarios").hasAnyRole("ADMIN, GERENTE")
+                .antMatchers(HttpMethod.PUT,"/usuarios/*").hasAnyRole("ADMIN, GERENTE")
+                .antMatchers(HttpMethod.DELETE,"/usuarios/*").hasAnyRole("ADMIN, GERENTE")
                 .anyRequest().authenticated()
                 .and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -64,6 +64,6 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
     }
 
 //    public static void main(String[] args) {
-//        System.out.println(new BCryptPasswordEncoder().encode("admin"));
+//        System.out.println(new BCryptPasswordEncoder().encode("123"));
 //    }
 }
