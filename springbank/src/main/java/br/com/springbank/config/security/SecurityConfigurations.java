@@ -15,6 +15,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.swing.*;
+
 @EnableWebSecurity
 @Configuration
 public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
@@ -45,11 +47,11 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers(HttpMethod.POST,"/auth").permitAll()
-                .antMatchers("/usuarios").hasAnyRole("ADMIN, GERENTE")
-                .antMatchers("/usuarios/*").hasAnyRole("ADMIN, GERENTE")
-//                .antMatchers(HttpMethod.POST,"/usuarios").hasAnyRole("ADMIN, GERENTE")
-//                .antMatchers(HttpMethod.PUT,"/usuarios/*").hasAnyRole("ADMIN, GERENTE")
-//                .antMatchers(HttpMethod.DELETE,"/usuarios/*").hasAnyRole("ADMIN, GERENTE")
+                .antMatchers(HttpMethod.GET,"/usuario").hasAnyRole("ADMIN","GERENTE")
+                .antMatchers(HttpMethod.POST,"/usuario").hasAnyRole("ADMIN","GERENTE")
+                .antMatchers(HttpMethod.GET,"/usuario/*").hasAnyRole("ADMIN","GERENTE")
+                .antMatchers(HttpMethod.PUT,"/usuario/*").hasAnyRole("ADMIN", "GERENTE")
+                .antMatchers(HttpMethod.DELETE,"/usuario/*").hasAnyRole("ADMIN","GERENTE")
                 .anyRequest().authenticated()
                 .and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -66,6 +68,8 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
     }
 
 //    public static void main(String[] args) {
-//        System.out.println(new BCryptPasswordEncoder().encode("123"));
+//        String senha = JOptionPane.showInputDialog("Digite a senha que deseja criptografar");
+//        String senhaCripto = new BCryptPasswordEncoder().encode(senha);
+//        System.out.println(senhaCripto);
 //    }
 }
