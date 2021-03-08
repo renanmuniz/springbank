@@ -1,27 +1,18 @@
-create schema if not exists springbank_dev;
+create schema springbank_dev;
 use springbank_dev;
 
-create table usuario (
-	id BigInt not null auto_increment,
-	nome varchar(10) not null,
-    senha varchar(256) not null,
-    data_criacao timestamp DEFAULT CURRENT_TIMESTAMP,
-    data_alteracao timestamp,
-    primary key(id));
+insert into perfil(nome, data_cadastro) values ('ROLE_ADMIN', now());
+insert into usuario(nome,senha,data_criacao) values ('ADMIN','$2a$10$GqUa0pdruuWofiSRIDm6o.0Kg.bcmsaSgo2.tfK4SkGCRZgCkCn7C',now());
+insert into usuario(nome,senha,data_criacao) values ('RENAN','$2a$10$GqUa0pdruuWofiSRIDm6o.0Kg.bcmsaSgo2.tfK4SkGCRZgCkCn7C',now());
+insert into usuario(nome,senha,data_criacao) values ('VINICIUS','$2a$10$GqUa0pdruuWofiSRIDm6o.0Kg.bcmsaSgo2.tfK4SkGCRZgCkCn7C',now());
+insert into usuario_perfis(usuario_id,perfis_id) values (1,1);
+insert into usuario_perfis(usuario_id,perfis_id) values (2,1);
+insert into usuario_perfis(usuario_id,perfis_id) values (3,1);
 
-insert into usuario(nome,senha) values ("admin","$2a$10$k05ciT7ZaENN/aNaHnHQp.1Ni4TsxiNhddiANEuQjA5AA1SPNSZQu");
-delete from usuario;
+commit;
 
-INSERT INTO usuario (nome, senha)
-SELECT * FROM (SELECT "admin", "$2a$10$k05ciT7ZaENN/aNaHnHQp.1Ni4TsxiNhddiANEuQjA5AA1SPNSZQu") AS tmp
-WHERE NOT EXISTS (
-    SELECT nome FROM usuario WHERE nome = "admin"
-) LIMIT 1;
-
-INSERT INTO USUARIO(nome,senha) VALUES ('renan','$2a$10$k05ciT7ZaENN/aNaHnHQp.1Ni4TsxiNhddiANEuQjA5AA1SPNSZQu');
 select * from usuario;
-desc usuario;
-desc perfil;
-INSERT INTO perfil(nome,data_cadastro) VALUES ("ROLE_ADMIN", timestamp);
 select * from perfil;
 select * from usuario_perfis;
+Select * from agencia;
+select * from conta;
