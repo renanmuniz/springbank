@@ -15,8 +15,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import javax.swing.*;
-
 @EnableWebSecurity
 @Configuration
 public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
@@ -52,6 +50,11 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET,"/usuario/*").hasAnyRole("ADMIN","GERENTE")
                 .antMatchers(HttpMethod.PUT,"/usuario/*").hasAnyRole("ADMIN", "GERENTE")
                 .antMatchers(HttpMethod.DELETE,"/usuario/*").hasAnyRole("ADMIN","GERENTE")
+                .antMatchers(HttpMethod.GET,"/perfil").hasAnyRole("ADMIN","GERENTE")
+                .antMatchers(HttpMethod.POST,"/perfil").hasAnyRole("ADMIN","GERENTE")
+                .antMatchers(HttpMethod.GET,"/perfil/*").hasAnyRole("ADMIN","GERENTE")
+                .antMatchers(HttpMethod.PUT,"/perfil/*").hasAnyRole("ADMIN", "GERENTE")
+                .antMatchers(HttpMethod.DELETE,"/perfil/*").hasAnyRole("ADMIN","GERENTE")
                 .anyRequest().authenticated()
                 .and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -67,9 +70,4 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**");
     }
 
-//    public static void main(String[] args) {
-//        String senha = JOptionPane.showInputDialog("Digite a senha que deseja criptografar");
-//        String senhaCripto = new BCryptPasswordEncoder().encode(senha);
-//        System.out.println(senhaCripto);
-//    }
 }
