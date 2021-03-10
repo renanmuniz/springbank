@@ -14,26 +14,21 @@ public class Conta {
     private Long id;
 
     @NotNull
-    @NotEmpty
     private Integer tipoConta;
 
     @Column(unique=true)
     @NotNull
-    @NotEmpty
     private Long numero;
 
     @NotNull
-    @NotEmpty
     @ManyToOne
     private Agencia agencia;
 
     @NotNull
-    @NotEmpty
     @ManyToOne
     private Usuario usuario;
 
     @NotNull
-    @NotEmpty
     private LocalDateTime data_criacao;
 
     private LocalDateTime data_alteracao;
@@ -41,12 +36,11 @@ public class Conta {
     public Conta() {
     }
 
-    public Conta(@NotEmpty Integer tipoConta, @NotEmpty Long numero, @NotEmpty Agencia agencia, @NotEmpty Usuario usuario, @NotEmpty LocalDateTime data_criacao) {
+    public Conta(@NotEmpty Integer tipoConta, @NotEmpty Long numero, @NotEmpty Agencia agencia, @NotEmpty Usuario usuario) {
         this.tipoConta = tipoConta;
         this.numero = numero;
         this.agencia = agencia;
         this.usuario = usuario;
-        this.data_criacao = data_criacao;
     }
 
     @Override
