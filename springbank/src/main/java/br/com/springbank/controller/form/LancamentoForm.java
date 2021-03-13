@@ -20,8 +20,7 @@ import java.util.Optional;
 public class LancamentoForm {
 
     @NotNull
-    @NotEmpty
-    private String usuario;
+    private Long conta;
 
     @NotNull
     @NotEmpty
@@ -30,12 +29,12 @@ public class LancamentoForm {
     @NotNull
     private Double valor;
 
-    public String getUsuario() {
-        return usuario;
+    public Long getConta() {
+        return conta;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setConta(Long conta) {
+        this.conta = conta;
     }
 
     public String getDescricao() {
@@ -55,7 +54,7 @@ public class LancamentoForm {
     }
 
     public Lancamento converter(ContaRepository repository) {
-        Conta conta = repository.findByUsuarioNome(this.usuario).get();
+        Conta conta = repository.findByNumero(this.conta).get();
         return new Lancamento(conta, descricao, valor, LocalDateTime.now());
     }
 
