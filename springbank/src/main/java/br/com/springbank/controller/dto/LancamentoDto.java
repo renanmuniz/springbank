@@ -4,6 +4,8 @@ import br.com.springbank.modelo.Lancamento;
 import org.springframework.data.domain.Page;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LancamentoDto {
 
@@ -21,8 +23,16 @@ public class LancamentoDto {
         this.dataHoraLcto = lancamento.getDataHoraLcto();
     }
 
-    public static Page<LancamentoDto> converter(Page<Lancamento> usuarios) {
-        return usuarios.map(LancamentoDto::new);
+    public static Page<LancamentoDto> converter(Page<Lancamento> lancamentos) {
+        return lancamentos.map(LancamentoDto::new);
+    }
+
+    public static List<LancamentoDto> converter(List<Lancamento> lancamentos) {
+        List<LancamentoDto> lancamentosDto = new ArrayList<>();
+        for (Lancamento lancamento : lancamentos) {
+            lancamentosDto.add(new LancamentoDto(lancamento));
+        }
+        return lancamentosDto;
     }
 
     public Long getId() {
