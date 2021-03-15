@@ -3,6 +3,7 @@ package br.com.springbank.controller.dto;
 import br.com.springbank.modelo.Lancamento;
 import org.springframework.data.domain.Page;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
