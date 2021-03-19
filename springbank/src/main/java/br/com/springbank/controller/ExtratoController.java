@@ -7,6 +7,10 @@ import br.com.springbank.modelo.Conta;
 import br.com.springbank.modelo.Lancamento;
 import br.com.springbank.repository.ContaRepository;
 import br.com.springbank.repository.LancamentoRepository;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,11 +26,10 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.io.*;
 import java.net.URI;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -56,6 +59,15 @@ public class ExtratoController {
 //            List<Lancamento> lancamentosFiltradorConta = lancamentos.stream()
 //                    .filter(l -> l.getConta().getNumero().equals(form.getConta())).collect(Collectors.toList());
 //            return LancamentoDto.converter(lancamentosFiltradorConta);
+
+            // TODO retirar daqui e fazer endpoint só para isso.
+            try {
+                ExtratoPdf extrato = new ExtratoPdf();
+                extrato.gerarExtratoPdf(lancamentos);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
             return LancamentoDto.converter(lancamentos);
         } else {
             throw new NoSuchElementException();
