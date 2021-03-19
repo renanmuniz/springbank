@@ -8,4 +8,5 @@ Tecnologias utlizadas:
 * JWT
 * Swagger
 * MySql
+* Jasper Report
 
