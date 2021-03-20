@@ -1,4 +1,4 @@
-package br.com.springbank.controller;
+package br.com.springbank.utils;
 
 import br.com.springbank.modelo.Lancamento;
 import net.sf.jasperreports.engine.*;
@@ -7,6 +7,9 @@ import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +21,8 @@ public class ExtratoPdf {
         System.out.println("Início da geração de relatório");
 
         /* Output file location to create report in pdf form */
-        String outputFile = "C:\\Users\\renan\\Desktop\\" + "Extrato" + lancamentos.get(0).getConta().getNumero().toString() + ".pdf";
+        //String outputFile = "C:\\Users\\renan\\Desktop\\" + "Extrato" + lancamentos.get(0).getConta().getNumero().toString() + ".pdf";
+        String outputFile = "recursos/relatoriosJasper/gerados/" + "Extrato" + lancamentos.get(0).getConta().getNumero().toString() + ".pdf";
 
         /* Convert List to JRBeanCollectionDataSource */
         JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(lancamentos);
@@ -28,7 +32,9 @@ public class ExtratoPdf {
         parameters.put("CollectionBeanParam", itemsJRBean);
 
         //read jrxml file and creating jasperdesign object
-        InputStream input = new FileInputStream(new File("C:\\Users\\renan\\Desktop\\Extrato.jrxml"));
+        //InputStream input = new FileInputStream(new File("D:\\Estudo\\SpringBank\\springbank\\recursos\\relatoriosJasper\\Extrato.jrxml"));
+        InputStream input = new FileInputStream(new File("recursos/relatoriosJasper/Extrato.jrxml"));
+
 
         JasperDesign jasperDesign = JRXmlLoader.load(input);
 
@@ -49,10 +55,15 @@ public class ExtratoPdf {
         /* Write content to PDF file */
         JasperExportManager.exportReportToPdfStream(jasperPrint, output);
 
+        System.out.println("Arquivo gerado: " + outputFile);
+
+//        Path pdfPath = Paths.get(outputFile);
+//        byte[] pdf = Files.readAllBytes(pdfPath);
+
         input.close();
         output.close();
 
-        System.out.println("File Generated");
+//        return pdf;
     }
 
     public void enviarEmailExtratoPdf() {
