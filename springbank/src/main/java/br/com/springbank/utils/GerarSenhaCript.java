@@ -1,4 +1,4 @@
-package br.com.springbank.config.security;
+package br.com.springbank.utils;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
